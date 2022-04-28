@@ -44,7 +44,7 @@ impl Handler<MqttMsg> for RecvActor {
         // 在这里解析mqtt消息
         // self.parse_msg(msg.1);
 
-        假如我在这里使用thread
+        // 假如我在这里使用thread
         thread::spawn(move ||{
             // info!("{}", msg.1);
             self.parse_msg(msg.1);
