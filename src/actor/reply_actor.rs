@@ -1,7 +1,6 @@
 use std::sync::Arc;
 
 use actix::prelude::*;
-use futures::executor::block_on;
 use crate::client::{MqttClient, MqttMsg};
 
 pub struct ReplyActor {
@@ -26,6 +25,6 @@ impl Handler<MqttMsg> for ReplyActor {
 
     fn handle(&mut self, msg: MqttMsg, ctx: &mut Self::Context) -> Self::Result {
         // 在这里解析mqtt消息
-        block_on(self.client.publish(&msg.0, &msg.1, msg.2));
+        self.client.publish(&msg.0, &msg.1, msg.2);
     }
 }
