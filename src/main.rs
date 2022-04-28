@@ -1,7 +1,7 @@
 mod actor;
 mod client;
 
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 use actor::*;
 
@@ -22,11 +22,12 @@ async fn main() -> std::io::Result<()> {
         let reply_actor = ReplyActor::new(client_arc.clone());
         let reply_addr = reply_actor.start();
 
-        let recv_actor = RecvActor::new(reply_addr);
+        let process = Arc::new(Mutex::new(Process::new(reply_addr)));
+        let recv_actor = RecvActor::new(process);
         let recv_actor_addr = recv_actor.start();
         let recv_actor_acr = Arc::new(recv_actor_addr);
 
-        let qos = 0;
+        let qos = 1;
         let topic = "/test/488ad2965e86/request";
         client_arc
             .clone()
