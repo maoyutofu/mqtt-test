@@ -21,9 +21,9 @@ impl RecvActor {
     /// 解析mqtt的消息，并转换为执行指令
     fn parse_msg(&mut self, message: String) {
         // 处理完业务逻辑，回复MQTT消息
-        // 假设处理这个逻辑要等待5s，才能得到结果
 
-        thread::sleep(Duration::from_millis(5000));
+        // 假设处理这个逻辑要等待5s，才能得到结果
+        thread::sleep(Duration::from_millis(5000)); 
 
 
         let topic = "/test/488ad2965e86/reply";
@@ -44,7 +44,7 @@ impl Handler<MqttMsg> for RecvActor {
         // 在这里解析mqtt消息
         // self.parse_msg(msg.1);
 
-        // 假如我在这里使用thread
+        假如我在这里使用thread
         thread::spawn(move ||{
             // info!("{}", msg.1);
             self.parse_msg(msg.1);

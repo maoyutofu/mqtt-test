@@ -39,7 +39,7 @@ impl MqttClient {
         Ok(MqttClient { cli, rx })
     }
 
-    pub async fn publish(&self, topic: &str, msg: &str, qos: i32) -> Result<()> {
+    pub fn publish(&self, topic: &str, msg: &str, qos: i32) -> Result<()> {
         info!("[pub]topic: {}, qos: {}, payload: {}", topic, qos, msg);
         let msg = mqtt::Message::new(topic, msg, qos);
         self.cli.publish(msg)?;
