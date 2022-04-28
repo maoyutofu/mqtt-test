@@ -1,6 +1,7 @@
 use std::{thread, time::Duration};
 
 use actix::prelude::*;
+use log::info;
 
 use crate::client::MqttMsg;
 
@@ -41,6 +42,12 @@ impl Handler<MqttMsg> for RecvActor {
 
     fn handle(&mut self, msg: MqttMsg, ctx: &mut Self::Context) -> Self::Result {
         // 在这里解析mqtt消息
-        self.parse_msg(msg.1);
+        // self.parse_msg(msg.1);
+
+        // 假如我在这里使用thread
+        thread::spawn(move ||{
+            // info!("{}", msg.1);
+            self.parse_msg(msg.1);
+        });
     }
 }
